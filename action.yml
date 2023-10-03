@@ -9,11 +9,23 @@ inputs:
       Target for ansible linter
       For example './', 'roles/my_role/' or 'site.yml'
     required: true
+  required_collections:
+    description: |
+      You can define a required ansible collection here.
+      They will be installed using ansible-galaxy collection install <YourInput>.
+    required: false
+  required_roles:
+    description: |
+      You can define a required ansible role here.
+      They will be installed using ansible-galaxy role install <YourInput>.
+    required: false
 runs:
   using: docker
   image: Dockerfile
   env:
     TARGET: ${{ inputs.target }}
+    REQCOLLECTIONS: ${{ inputs.required_collections }}
+    REQROLES: ${{ inputs.required_roles }}
 branding:
   icon: 'upload-cloud'
   color: 'black'
