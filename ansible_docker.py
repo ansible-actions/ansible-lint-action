@@ -77,7 +77,8 @@ if __name__ == "__main__":
 
     # Optionally install required ansible collections
     if bool(reqired_collection):
-        ansible_command = ["ansible-galaxy", "collection", "install", f"{reqired_collection}", "--upgrade"]
+        ansible_command = ["ansible-galaxy", "collection", "install",
+                          f"{reqired_collection}", "--upgrade"]
         version_info = ansible_version_checker.run_command(ansible_command)
         print(f"COLLECTION INSTALL SUCCESSFUL\n{version_info}")
 

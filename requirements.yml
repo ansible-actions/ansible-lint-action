@@ -1,4 +1,0 @@
----
-collections:
-  - name: l3d.git
-    version: ">=1.0.10"
