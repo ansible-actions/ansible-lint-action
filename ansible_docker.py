@@ -63,6 +63,9 @@ if __name__ == "__main__":
     # check for target variable
     env_target = EnvironmentManager(ENV_TARGET_NAME)
     target = env_target.check_required_environment_variable()
+    if target == "":
+        print("Target needs to be defined")
+        sys.exit(1)
 
     # check for required collection variable
     env_collection = EnvironmentManager(ENV_REQUIRED_COLLECTION_NAME)
@@ -90,4 +93,5 @@ if __name__ == "__main__":
 
     # run ansible lint
     ansible_command = ["ansible-lint", f"{target}"]
-    version_info = ansible_version_checker.run_command(ansible_command)
+    linter_run = ansible_version_checker.run_command(ansible_command)
+    print(f"{linter_run}\n\nAnsible run successful")
