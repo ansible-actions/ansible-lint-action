@@ -19,6 +19,11 @@ inputs:
       You can define a required ansible role here.
       They will be installed using ansible-galaxy role install <YourInput>.
     required: false
+  python_dependency:
+    description: |
+      Install a Python Package using pip
+      They will be installed using pip install <YourInput>.
+    required: false
 runs:
   using: docker
   image: Dockerfile
@@ -26,6 +31,7 @@ runs:
     TARGET: ${{ inputs.target }}
     REQCOLLECTIONS: ${{ inputs.required_collections }}
     REQROLES: ${{ inputs.required_roles }}
+    PIPPACKAGE: ${{ inputs.python_dependency }}
 branding:
   icon: 'check-circle'
   color: 'blue'
