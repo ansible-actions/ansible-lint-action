@@ -59,6 +59,7 @@ if __name__ == "__main__":
     ENV_TARGET_NAME = "TARGET"
     ENV_REQUIRED_COLLECTION_NAME = "REQCOLLECTIONS"
     ENV_REQUIRED_ROLE_NAME = "REROLE"
+    ENV_PIPPACKAGE_NAME = "PIPPACKAGE"
 
     # check for target variable
     env_target = EnvironmentManager(ENV_TARGET_NAME)
@@ -75,6 +76,10 @@ if __name__ == "__main__":
     env_role = EnvironmentManager(ENV_REQUIRED_ROLE_NAME)
     reqired_role = env_role.check_optional_environment_variable()
 
+    # check for required role variable
+    env_pip = EnvironmentManager(ENV_PIPPACKAGE_NAME)
+    pip_pkg = env_pip.check_optional_environment_variable()
+
     # run ansible commands
     ansible_version_checker = AnsibleCommandExecution()
 
@@ -90,6 +95,12 @@ if __name__ == "__main__":
         ansible_command = ["ansible-galaxy", "role", "install", f"{reqired_role}", "--upgrade"]
         version_info = ansible_version_checker.run_command(ansible_command)
         print(f"ROLE INSTALL SUCCESSFUL\n{version_info}")
+
+    # Optionally install pip package
+    if  bool(pip_pkg):
+        ansible_command = ["pip", "install", "--upgrade", f"{pip_pkg}"]
+        version_info = ansible_version_checker.run_command(ansible_command)
+        print(f"PIP PACKAGE INSTALL SUCCESSFUL\n{version_info}")
 
     # run ansible lint
     ansible_command = ["ansible-lint", f"{target}"]

@@ -22,6 +22,11 @@ inputs:
       You can define a required ansible role here.
       They will be installed using ansible-galaxy role install <YourInput>.
     required: false
+  python_dependency:
+    description: |
+      Install a Python Package using pip
+      They will be installed using pip install <YourInput>.
+    required: false
 ```
 
 ## Example Setup
@@ -46,7 +51,7 @@ jobs:
           fetch-depth: 0
 
       - name: Run ansible-lint
-        uses: ansible-actions/ansible-lint-action@v0.0.2
+        uses: ansible-actions/ansible-lint-action@v0.0.3
         with:
           target: "site.yml"
 ```
