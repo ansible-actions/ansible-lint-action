@@ -28,7 +28,7 @@ jobs:
           fetch-depth: 0
 
       - name: Run ansible-lint
-        uses: ansible-actions/ansible-lint-action@v1.0.0
+        uses: ansible-actions/ansible-lint-action@v1.0.1
         with:
           target: "./"
 ```
