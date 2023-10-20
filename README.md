@@ -1,35 +1,13 @@
  Action Ansible Linting
-===============================
+========================
 
-Linting Ansible roles...
+Linting ansible roles using the ansible-lint package directly from pypi.
 
-Work in Progress...
+Optionally it is possible to install some requirements like ansible collections, roles or pip packages. For more details about it, have a look at the Variables
 
-```yml
-inputs:
-  target:
-    description: |
-      Target for ansible linter
-      For example './', 'roles/my_role/' or 'site.yml'
-    required: true
-  required_collections:
-    description: |
-      You can define a required ansible collection here.
-      They will be installed using ansible-galaxy collection install <YourInput>.
-    required: false
-  required_roles:
-    description: |
-      You can define a required ansible role here.
-      They will be installed using ansible-galaxy role install <YourInput>.
-    required: false
-  python_dependency:
-    description: |
-      Install a Python Package using pip
-      They will be installed using pip install <YourInput>.
-    required: false
-```
+## Usage
 
-## Example Setup
+Example of ``.github/workflows/ansible-linting-check.yml``
 ```yaml
 ---
 name: Ansible Lint check
@@ -51,7 +29,30 @@ jobs:
           fetch-depth: 0
 
       - name: Run ansible-lint
-        uses: ansible-actions/ansible-lint-action@v0.0.3
+        uses: ansible-actions/ansible-lint-action@v0.0.4
         with:
-          target: "site.yml"
+          target: "./"
 ```
+
+This will run the command ``ansible-lint ./``
+
+You can install some reuqirements, example:
+```yml
+[...]
+        with:
+          target: "./"
+          required_collections: 'community.general'
+          python_dependency: 'jmespath'
+```
+*This will install the community.general collections as well as the jmespath pip package.*
+
+## Variables
+
+| name | required | description | example values |
+| --- | --- | --- | --- |
+| ``target`` | true | Target for ansible linter | ``./`` or ``site.yml`` or ``path/to/ansible/`` |
+| ``required_collections`` | - | define one ansible collection to install | ``community.general`` |
+| ``collections_yml`` | - | define path of yml file for installing multiple ansible collections | ``requirements.yml`` |
+| ``required_roles`` | - | define one ansible role to install | ``namespace.rolename`` |
+| ``python_dependency`` | - | define one pip package to install | ``jmespath`` |
+| ``python_dependency_file`` | - | define path of txt file for installing multiple python packages | ``requirements.txt`` |
