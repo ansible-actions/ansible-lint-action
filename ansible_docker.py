@@ -60,6 +60,8 @@ if __name__ == "__main__":
     ENV_REQUIRED_COLLECTION_NAME = "REQCOLLECTIONS"
     ENV_REQUIRED_ROLE_NAME = "REROLE"
     ENV_PIPPACKAGE_NAME = "PIPPACKAGE"
+    ENV_PIPPACKAGE_TXT_NAME = "PIPPACKAGETXT"
+    ENV_COLLECTIONS_YML_NAME = "COLLECTIONSYML"
 
     # check for target variable
     env_target = EnvironmentManager(ENV_TARGET_NAME)
@@ -72,23 +74,38 @@ if __name__ == "__main__":
     env_collection = EnvironmentManager(ENV_REQUIRED_COLLECTION_NAME)
     reqired_collection = env_collection.check_optional_environment_variable()
 
+    # check for required collection variable
+    env_collection_yml = EnvironmentManager(ENV_COLLECTIONS_YML_NAME)
+    reqired_collection_yml = env_collection_yml.check_optional_environment_variable()
+
     # check for required role variable
     env_role = EnvironmentManager(ENV_REQUIRED_ROLE_NAME)
     reqired_role = env_role.check_optional_environment_variable()
 
-    # check for required role variable
+    # check for install pip packages variable
     env_pip = EnvironmentManager(ENV_PIPPACKAGE_NAME)
     pip_pkg = env_pip.check_optional_environment_variable()
+
+    # check for install packages.txt variable
+    env_pip_txt = EnvironmentManager(ENV_PIPPACKAGE_TXT_NAME)
+    pip_pkg_txt = env_pip_txt.check_optional_environment_variable()
 
     # run ansible commands
     ansible_version_checker = AnsibleCommandExecution()
 
-    # Optionally install required ansible collections
+    # Optionally install required ansible collections directly
     if bool(reqired_collection):
         ansible_command = ["ansible-galaxy", "collection", "install",
                           f"{reqired_collection}", "--upgrade"]
         version_info = ansible_version_checker.run_command(ansible_command)
         print(f"COLLECTION INSTALL SUCCESSFUL\n{version_info}")
+
+    # Optionally install required ansible collections from yml file
+    if bool(reqired_collection_yml):
+        ansible_command = ["ansible-galaxy", "collection", "install", "-r",
+                          f"{reqired_collection_yml}", "--upgrade"]
+        version_info = ansible_version_checker.run_command(ansible_command)
+        print(f"COLLECTION.YML INSTALL SUCCESSFUL\n{version_info}")
 
     # Optionally install required ansible roles
     if  bool(reqired_role):
@@ -96,11 +113,17 @@ if __name__ == "__main__":
         version_info = ansible_version_checker.run_command(ansible_command)
         print(f"ROLE INSTALL SUCCESSFUL\n{version_info}")
 
-    # Optionally install pip package
+    # Optionally install pip package directly
     if  bool(pip_pkg):
         ansible_command = ["pip", "install", "--upgrade", f"{pip_pkg}"]
         version_info = ansible_version_checker.run_command(ansible_command)
         print(f"PIP PACKAGE INSTALL SUCCESSFUL\n{version_info}")
+
+    # Optionally install pip package from file
+    if  bool(pip_pkg_txt):
+        ansible_command = ["pip", "install", "--upgrade", "-r",  f"{pip_pkg_txt}"]
+        version_info = ansible_version_checker.run_command(ansible_command)
+        print(f"PIP PACKAGE.TXT INSTALL SUCCESSFUL\n{version_info}")
 
     # run ansible lint
     ansible_command = ["ansible-lint", f"{target}"]
