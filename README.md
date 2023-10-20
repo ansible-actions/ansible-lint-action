@@ -24,7 +24,6 @@ jobs:
       - name: 'checkout git repo'
         uses: actions/checkout@v4
         with:
-          lfs: true
           submodules: true
           fetch-depth: 0
 
