@@ -102,8 +102,8 @@ if __name__ == "__main__":
 
     # Optionally install required ansible collections from yml file
     if bool(reqired_collection_yml):
-        collections_install_command = ["ansible-galaxy", "collection", "install", "-r",
-                          f"{reqired_collection_yml}", "--upgrade"]
+        collections_install_command = ["ansible-galaxy", "install", "--role-file",
+                          f"{reqired_collection_yml}", "--force"]
         collections_install_info = execute.run_command(collections_install_command)
         print(f"{collections_install_info}\nCOLLECTION.YML INSTALL SUCCESSFUL")
 
