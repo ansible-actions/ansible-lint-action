@@ -17,12 +17,12 @@ inputs:
   collections_yml:
     description: |
       Install multiple Collections, defined from requirements.yml file
-      They will be installed using ansible-galaxy collection install -r <YourInput> --upgrade.
+      They will be installed using ansible-galaxy collection install -r <YourInput> --force.
     required: false
   required_roles:
     description: |
       You can define a required ansible role here.
-      They will be installed using ansible-galaxy role install <YourInput> --upgrade.
+      They will be installed using ansible-galaxy role install <YourInput> --force.
     required: false
   python_dependency:
     description: |

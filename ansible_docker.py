@@ -109,7 +109,7 @@ if __name__ == "__main__":
 
     # Optionally install required ansible roles
     if  bool(reqired_role):
-        role_install_command = ["ansible-galaxy", "role", "install", f"{reqired_role}", "--upgrade"]
+        role_install_command = ["ansible-galaxy", "role", "install", f"{reqired_role}", "--force"]
         role_install_info = execute.run_command(role_install_command)
         print(f"{role_install_info}\nSINGLE ROLE INSTALL SUCCESSFUL")
 
