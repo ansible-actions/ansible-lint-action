@@ -1,7 +1,7 @@
  Action Ansible Linting
 ========================
 
-Linting ansible roles using the ansible-lint package directly from pypi.
+Linting ansible roles or collections using the ansible-lint package directly from pypi.
 
 Optionally it is possible to install some requirements like ansible collections, roles or pip packages. For more details about it, have a look at the Variables
 
