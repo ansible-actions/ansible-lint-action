@@ -21,14 +21,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 'checkout git repo'
+      - name: Checkout git repo
         uses: actions/checkout@v4
         with:
           submodules: true
           fetch-depth: 0
 
       - name: Run ansible-lint
-        uses: ansible-actions/ansible-lint-action@v1.0.1
+        uses: ansible-actions/ansible-lint-action@v1.0.2
         with:
           target: "./"
 ```
