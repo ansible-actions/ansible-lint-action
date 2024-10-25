@@ -63,10 +63,10 @@ if __name__ == "__main__":
     ENV_PIPPACKAGE_TXT_NAME = "PIPPACKAGETXT"
     ENV_COLLECTIONS_YML_NAME = "COLLECTIONSYML"
 
-    # check for target variable
+    # check for TARGET variable
     env_target = EnvironmentManager(ENV_TARGET_NAME)
-    target = env_target.check_required_environment_variable()
-    if target == "":
+    TARGET = env_target.check_required_environment_variable()
+    if TARGET == "":
         print("Target needs to be defined")
         sys.exit(1)
 
@@ -126,6 +126,6 @@ if __name__ == "__main__":
         print(f"{pip_requirements_info}\nPIP PACKAGE.TXT INSTALL SUCCESSFUL")
 
     # run ansible lint
-    ansible_command = ["ansible-lint", f"{target}"]
+    ansible_command = ["ansible-lint", f"{TARGET}"]
     linter_run = execute.run_command(ansible_command)
     print(f"---start+linter---\n{linter_run}\nAnsible run successful\n---end+linter---")
