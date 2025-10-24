@@ -1,5 +1,6 @@
 # hadolint ignore=DL3007
-FROM python:latest
+FROM python:trixie
+# FROM python:latest
 
 LABEL "maintainer"="L3D <l3d@c3woc.de>"
 LABEL "repository"="https://github.com/ansible-actions/ansible-lint-action.git"
