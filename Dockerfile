@@ -1,5 +1,5 @@
 # hadolint ignore=DL3007
-FROM python:trixie
+FROM python:3.13-trixie
 # FROM python:latest
 
 LABEL "maintainer"="L3D <l3d@c3woc.de>"
